@@ -136,6 +136,7 @@ int parse_input(struct frame** dest) {
 					(*newframe).duration = duration;
 					(*newframe).note_ct = 1;
 					(*newframe).notes = malloc(sizeof(struct note));
+					(*newframe).notes[0] = newnote;
 					(*newframe).nextframe = *frame_it;
 					*frame_it = newframe;
 				}
