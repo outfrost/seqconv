@@ -2,29 +2,29 @@
 
 #include "sequence.h"
 
-int emit_sequence(const struct frame* firstframe) {
-	const struct frame* frame_it = firstframe;
+int emit_sequence(const struct chord* firstchord) {
+	const struct chord* chord_it = firstchord;
 	int index = 0;
-	while (frame_it != NULL) {
-		while (index > (*frame_it).index) {
-			frame_it = (*frame_it).nextframe;
+	while (chord_it != NULL) {
+		while (index > (*chord_it).index) {
+			chord_it = (*chord_it).nextchord;
 		}
-		while (index < (*frame_it).index) {
+		while (index < (*chord_it).index) {
 			putchar('x');
 			++index;
 		}
 		putchar(' ');
 		
-		for (int i = 0; i < (*frame_it).note_ct; ++i) {
-			printf("%s", (*frame_it).notes[i].text);
+		for (int i = 0; i < (*chord_it).note_ct; ++i) {
+			printf("%s", (*chord_it).notes[i].text);
 		}
 		
 		++index;
-		for (int i = 1; i < (*frame_it).duration; ++i) {
+		for (int i = 1; i < (*chord_it).duration; ++i) {
 			putchar('o');
 			++index;
 		}
-		frame_it = (*frame_it).nextframe;
+		chord_it = (*chord_it).nextchord;
 	}
 	putchar('\n');
 	return 0;

@@ -5,12 +5,12 @@ struct note {
 	char* text;
 };
 
-struct frame {
+struct chord {
 	int index;
 	int duration;
 	int note_ct;
 	struct note* notes;
-	struct frame* nextframe;
+	struct chord* nextchord;
 };
 
 #endif

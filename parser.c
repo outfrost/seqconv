@@ -7,8 +7,8 @@
 #include "sequence.h"
 #include "parser_.h"
 
-int parse_input(struct frame** dest) {
-	struct frame* firstframe = NULL;
+int parse_input(struct chord** dest) {
+	struct chord* firstchord = NULL;
 	
 	enum scanstate state = LOOKING_FOR_BRACES;
 	int braces = 0;
@@ -113,38 +113,38 @@ int parse_input(struct frame** dest) {
 				head = EOF;
 			}
 			else {
-				struct frame** frame_it = &firstframe;
+				struct chord** chord_it = &firstchord;
 				bool inserted = false;
 				while (!inserted
-						&& *frame_it != NULL
-						&& (**frame_it).index <= index) {
-					if ((**frame_it).index == index) {
-						++(**frame_it).note_ct;
-						(**frame_it).notes = realloc((**frame_it).notes,
-								(**frame_it).note_ct * sizeof(struct note));
-						(**frame_it).notes[(**frame_it).note_ct - 1] = newnote;
-						if (duration > (**frame_it).duration) {
-							(**frame_it).duration = duration;
+						&& *chord_it != NULL
+						&& (**chord_it).index <= index) {
+					if ((**chord_it).index == index) {
+						++(**chord_it).note_ct;
+						(**chord_it).notes = realloc((**chord_it).notes,
+								(**chord_it).note_ct * sizeof(struct note));
+						(**chord_it).notes[(**chord_it).note_ct - 1] = newnote;
+						if (duration > (**chord_it).duration) {
+							(**chord_it).duration = duration;
 						}
 						inserted = true;
 					}
-					frame_it = &(**frame_it).nextframe;
+					chord_it = &(**chord_it).nextchord;
 				}
 				if (!inserted) {
-					struct frame* newframe = malloc(sizeof(struct frame));
-					(*newframe).index = index;
-					(*newframe).duration = duration;
-					(*newframe).note_ct = 1;
-					(*newframe).notes = malloc(sizeof(struct note));
-					(*newframe).notes[0] = newnote;
-					(*newframe).nextframe = *frame_it;
-					*frame_it = newframe;
+					struct chord* newchord = malloc(sizeof(struct chord));
+					(*newchord).index = index;
+					(*newchord).duration = duration;
+					(*newchord).note_ct = 1;
+					(*newchord).notes = malloc(sizeof(struct note));
+					(*newchord).notes[0] = newnote;
+					(*newchord).nextchord = *chord_it;
+					*chord_it = newchord;
 				}
 				state = LOOKING;
 			}
 		}
 	}
-	*dest = firstframe;
+	*dest = firstchord;
 	return 0;
 }
 
