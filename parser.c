@@ -116,8 +116,8 @@ int parse_input(struct frame** dest) {
 				struct frame** frame_it = &firstframe;
 				bool inserted = false;
 				while (!inserted
-				       && *frame_it != NULL
-				       && (**frame_it).index <= index) {
+						&& *frame_it != NULL
+						&& (**frame_it).index <= index) {
 					if ((**frame_it).index == index) {
 						++(**frame_it).note_ct;
 						(**frame_it).notes = realloc((**frame_it).notes,
