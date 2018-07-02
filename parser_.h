@@ -1,0 +1,13 @@
+enum scanstate {
+	LOOKING_FOR_BRACES = 0,
+	IN_BRACES,
+	LOOKING,
+	FOUND_INDEX,
+	FOUND_INDEX_SPACE,
+	FOUND_NOTE,
+	FOUND_NOTE_SPACE,
+	FOUND_DURATION,
+	FOUND_DURATION_SPACE
+};
+
+bool is_notechar(const int c);
