@@ -69,11 +69,18 @@ int parse_input(struct frame** dest) {
 		else if (state == FOUND_NOTE) {
 			head = getchar();
 			if (is_notechar(head)) {
+				if (head == '#') {
+					head = 's';
+				}
+				
 				int text_len = strlen(newnote.text) + sizeof(char);
+				
 				char* newtext = malloc(text_len + sizeof(char));
 				strncpy(newtext, newnote.text, text_len);
+				
 				newtext[text_len - sizeof(char)] = head;
 				newtext[text_len] = '\0';
+				
 				free(newnote.text);
 				newnote.text = newtext;
 			}
