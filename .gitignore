@@ -3,3 +3,6 @@ out/
 
 # Test data
 test/
+
+# GNU nano
+*.swp
