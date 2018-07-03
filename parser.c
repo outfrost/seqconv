@@ -132,12 +132,12 @@ int parse_input(struct chord** dest) {
 				}
 				if (!inserted) {
 					struct chord* newchord = malloc(sizeof(struct chord));
-					(*newchord).index = index;
-					(*newchord).duration = duration;
-					(*newchord).note_ct = 1;
-					(*newchord).notes = malloc(sizeof(struct note));
+					(*newchord) = (struct chord){ .index = index,
+					                              .duration = duration,
+					                              .note_ct = 1,
+					                              .notes = malloc(sizeof(struct note)),
+					                              .nextchord = *chord_it };
 					(*newchord).notes[0] = newnote;
-					(*newchord).nextchord = *chord_it;
 					*chord_it = newchord;
 				}
 				state = LOOKING;
