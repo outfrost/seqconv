@@ -119,10 +119,12 @@ int parse_input(struct chord** dest) {
 						&& *chord_it != NULL
 						&& (**chord_it).index <= index) {
 					if ((**chord_it).index == index) {
-						++(**chord_it).note_ct;
+						int note_ct = ++(**chord_it).note_ct;
+						
 						(**chord_it).notes = realloc((**chord_it).notes,
-								(**chord_it).note_ct * sizeof(struct note));
-						(**chord_it).notes[(**chord_it).note_ct - 1] = newnote;
+								note_ct * sizeof(struct note));
+						(**chord_it).notes[note_ct - 1] = newnote;
+						
 						if (duration > (**chord_it).duration) {
 							(**chord_it).duration = duration;
 						}
