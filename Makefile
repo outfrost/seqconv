@@ -1,16 +1,23 @@
-compileargs = -g -Wall -Wextra -Wpedantic
-linkargs = 
-objects = out/main.o out/seqconv.o out/parser.o out/sorter.o out/emitter.o
+compileargs ::= -g -Wall -Wextra -Wpedantic
+linkargs ::=
+objects ::= out/main.o out/seqconv.o out/parser.o out/sorter.o out/emitter.o
 
-out/seqconv : $(objects)
+ifeq ($(OS),Windows_NT)
+	binext ::= .exe
+else
+	binext ::=
+endif
+binpath ::= out/seqconv$(binext)
+
+$(binpath) : $(objects)
 	@echo "###### Linking executable..."
-	cc -o out/seqconv $(objects) $(linkargs)
+	cc -o $(binpath) $(objects) $(linkargs)
 
-seqconv : out/seqconv
+seqconv : $(binpath)
 
-run : out/seqconv
+run : $(binpath)
 	@echo
-	out/seqconv
+	$(binpath)
 
 init : out/
 
